@@ -1,0 +1,133 @@
+import React, { useState, useEffect } from 'react';
+import { Modal, Box, Typography, TextField, Button, Grid } from '@mui/material';
+import { useContext } from 'react';
+import TicketContext from '../../context/tickets/ticketContext';
+
+const TicketForm = ({ open, handleClose, currentTicket }) => {
+    const { createTicket, updateTicket } = useContext(TicketContext);
+    const [ticket, setTicket] = useState({
+        ticketID: '',
+        assetID: '',
+        issueDescription: '',
+        dateRaised: '',
+        status: '',
+    });
+
+    useEffect(() => {
+        if (currentTicket) {
+            setTicket(currentTicket);
+        } else {
+            setTicket({
+                ticketID: '',
+                assetID: '',
+                issueDescription: '',
+                dateRaised: '',
+                status: '',
+            });
+        }
+    }, [currentTicket]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setTicket({
+            ...ticket,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (currentTicket) {
+            updateTicket(ticket);
+        } else {
+            createTicket(ticket);
+        }
+        handleClose();
+    };
+
+    return (
+        <Modal open={open} onClose={handleClose}>
+            <Box sx={{ 
+                position: 'absolute', 
+                top: '50%', 
+                left: '50%', 
+                transform: 'translate(-50%, -50%)', 
+                width: '90%', 
+                maxWidth: 600, 
+                maxHeight: '90%', 
+                bgcolor: 'background.paper', 
+                p: 4, 
+                boxShadow: 24, 
+                borderRadius: 2, 
+                overflowY: 'auto',
+                height: currentTicket ? 'auto' : 'fit-content',
+            }}>
+                <Typography variant="h6" component="h2" gutterBottom>
+                    {currentTicket ? 'Update Ticket' : 'Add New Ticket'}
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Ticket ID"
+                                name="ticketID"
+                                value={ticket.ticketID}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                                disabled={currentTicket ? true : false}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Asset ID"
+                                name="assetID"
+                                value={ticket.assetID}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Issue Description"
+                                name="issueDescription"
+                                value={ticket.issueDescription}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Date Raised"
+                                name="dateRaised"
+                                value={ticket.dateRaised}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Status"
+                                name="status"
+                                value={ticket.status}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                                {currentTicket ? 'Update Ticket' : 'Add Ticket'}
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Box>
+        </Modal>
+    );
+};
+
+export default TicketForm;
