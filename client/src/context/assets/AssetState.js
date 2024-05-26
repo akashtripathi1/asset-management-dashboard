@@ -47,9 +47,14 @@ const AssetState = props => {
   };
 
   // Update Asset
-  const updateAsset = () => {};
+  const updateAsset = asset => {
+    dispatch({ type: UPDATE_ASSET, payload: asset });
+  };
+
   // Delete Asset
-  const deleteAsset = () => {};
+  const deleteAsset = motorID => {
+    dispatch({ type: DELETE_ASSET, payload: motorID });
+  };
 
   return (
     <AssetContext.Provider
