@@ -3,7 +3,12 @@
 import React, { useReducer } from 'react';
 import AssetContext from './assetContext';
 import assetReducer from './assetReducer';
-import { LOAD_ASSETS } from '../types';
+import { 
+  LOAD_ASSETS,
+  CREATE_ASSET,
+  UPDATE_ASSET,
+  DELETE_ASSET,
+ } from '../types';
 
 const AssetState = props => {
   const initialState = {
@@ -36,11 +41,24 @@ const AssetState = props => {
     dispatch({ type: LOAD_ASSETS });
   };
 
+  // Create Asset
+  const createAsset = asset => {
+    dispatch({ type: CREATE_ASSET, payload: asset });
+  };
+
+  // Update Asset
+  const updateAsset = () => {};
+  // Delete Asset
+  const deleteAsset = () => {};
+
   return (
     <AssetContext.Provider
       value={{
         assets: state.assets,
-        loadAssets
+        loadAssets,
+        createAsset,
+        updateAsset,
+        deleteAsset
       }}
     >
       {props.children}

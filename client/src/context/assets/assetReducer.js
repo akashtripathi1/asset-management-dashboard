@@ -1,4 +1,9 @@
-import { LOAD_ASSETS } from '../types';
+import { 
+  LOAD_ASSETS,
+  CREATE_ASSET,
+  UPDATE_ASSET,
+  DELETE_ASSET,
+ } from '../types';
 
 const assetReducer = (state, action) => {
   switch (action.type) {
@@ -6,6 +11,11 @@ const assetReducer = (state, action) => {
       return {
         ...state
       };
+      case CREATE_ASSET:
+        return {
+          ...state,
+          assets: [...state.assets, action.payload]
+        };
     default:
       return state;
   }
