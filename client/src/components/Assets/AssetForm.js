@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Box, Typography, TextField, Button, Grid } from '@mui/material';
 import { useContext } from 'react';
 import AssetContext from '../../context/assets/assetContext';
 
-const AssetForm = ({ open, handleClose }) => {
-    const { createAsset } = useContext(AssetContext);
+const AssetForm = ({ open, handleClose, currentAsset }) => {
+    const { createAsset, updateAsset } = useContext(AssetContext);
     const [asset, setAsset] = useState({
         motorID: '',
         name: '',
@@ -23,6 +23,31 @@ const AssetForm = ({ open, handleClose }) => {
             speed: ''
         }
     });
+
+    useEffect(() => {
+        if (currentAsset) {
+            setAsset(currentAsset);
+        } else {
+            setAsset({
+                motorID: '',
+                name: '',
+                description: '',
+                location: '',
+                manufacturer: '',
+                modelNumber: '',
+                serialNumber: '',
+                installationDate: '',
+                lastMaintenanceDate: '',
+                status: '',
+                specifications: {
+                    power: '',
+                    voltage: '',
+                    current: '',
+                    speed: ''
+                }
+            });
+        }
+    }, [currentAsset]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,7 +69,11 @@ const AssetForm = ({ open, handleClose }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createAsset(asset);
+        if (currentAsset) {
+            updateAsset(asset);
+        } else {
+            createAsset(asset);
+        }
         handleClose();
     };
 
@@ -65,7 +94,7 @@ const AssetForm = ({ open, handleClose }) => {
                 overflowY: 'auto' 
             }}>
                 <Typography variant="h6" component="h2" gutterBottom>
-                    Add New Asset
+                    {currentAsset ? 'Update Asset' : 'Add New Asset'}
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
@@ -77,6 +106,7 @@ const AssetForm = ({ open, handleClose }) => {
                                 onChange={handleChange}
                                 fullWidth
                                 required
+                                disabled={currentAsset ? true : false}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -216,7 +246,7 @@ const AssetForm = ({ open, handleClose }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Button type="submit" variant="contained" color="primary" fullWidth>
-                                Add Asset
+                                {currentAsset ? 'Update Asset' : 'Add Asset'}
                             </Button>
                         </Grid>
                     </Grid>
