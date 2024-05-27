@@ -23,7 +23,7 @@ const AssetState = props => {
         serialNumber: "SN-123456789",
         installationDate: "2022-01-20",
         lastMaintenanceDate: "2023-04-15",
-        status: "Operational",
+        status: "Under Maintenance",
         specifications: {
           power: 10,
           voltage: 380,
@@ -42,7 +42,7 @@ const AssetState = props => {
         serialNumber: "SN-987654321",
         installationDate: "2022-03-10",
         lastMaintenanceDate: "2023-06-25",
-        status: "Operational",
+        status: "Out of Service",
         specifications: {
           power: 15,
           voltage: 480,

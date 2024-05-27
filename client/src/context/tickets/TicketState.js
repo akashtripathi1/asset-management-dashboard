@@ -26,7 +26,7 @@ const TicketState = props => {
         assetID: "MTR-003",
         issueDescription: "Motor is making strange noises.",
         dateRaised: "2023-07-10",
-        status: "Open",
+        status: "In Progress",
         lastModified: "2024-05-21T05:00:00.000Z"
       },
       {
@@ -34,7 +34,7 @@ const TicketState = props => {
         assetID: "MTR-004",
         issueDescription: "Agitator motor shaft is vibrating excessively.",
         dateRaised: "2023-09-05",
-        status: "Open",
+        status: "Resolved",
         lastModified: "2024-05-20T04:00:00.000Z"
       },
       {
