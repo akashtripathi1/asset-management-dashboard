@@ -19,6 +19,26 @@ const TicketState = props => {
         issueDescription: "Motor is overheating.",
         dateRaised: "2023-05-22",
         status: "Open"
+      },    {
+        ticketID: "TCK-103",
+        assetID: "MTR-003",
+        issueDescription: "Motor is making strange noises.",
+        dateRaised: "2023-07-10",
+        status: "Open"
+      },
+      {
+        ticketID: "TCK-104",
+        assetID: "MTR-004",
+        issueDescription: "Agitator motor shaft is vibrating excessively.",
+        dateRaised: "2023-09-05",
+        status: "Open"
+      },
+      {
+        ticketID: "TCK-105",
+        assetID: "MTR-005",
+        issueDescription: "Cooling tower fan is not starting up.",
+        dateRaised: "2023-06-30",
+        status: "Open"
       }
     ]
   };
