@@ -11,7 +11,7 @@ const Tickets = () => {
 
     useEffect(() => {
         loadTickets();
-    }, []); // Empty dependency array ensures this effect runs only once
+    }, []);
 
     const handleOpen = () => {
         setCurrentTicket(null);
@@ -46,4 +46,3 @@ const Tickets = () => {
 };
 
 export default Tickets;
-

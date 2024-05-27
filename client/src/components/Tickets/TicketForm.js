@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Box, Typography, TextField, Button, Grid } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useContext } from 'react';
 import TicketContext from '../../context/tickets/ticketContext';
 
@@ -9,19 +9,22 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
         ticketID: '',
         assetID: '',
         issueDescription: '',
-        dateRaised: '',
         status: '',
     });
 
     useEffect(() => {
         if (currentTicket) {
-            setTicket(currentTicket);
+            setTicket({
+                ticketID: currentTicket.ticketID,
+                assetID: currentTicket.assetID,
+                issueDescription: currentTicket.issueDescription,
+                status: currentTicket.status,
+            });
         } else {
             setTicket({
                 ticketID: '',
                 assetID: '',
                 issueDescription: '',
-                dateRaised: '',
                 status: '',
             });
         }
@@ -37,10 +40,14 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const updatedTicket = {
+            ...ticket,
+            dateRaised: new Date().toISOString(),
+        };
         if (currentTicket) {
-            updateTicket(ticket);
+            updateTicket(updatedTicket);
         } else {
-            createTicket(ticket);
+            createTicket(updatedTicket);
         }
         handleClose();
     };
@@ -96,27 +103,26 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                                 onChange={handleChange}
                                 fullWidth
                                 required
+                                multiline
+                                rows={4}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                label="Date Raised"
-                                name="dateRaised"
-                                value={ticket.dateRaised}
-                                onChange={handleChange}
-                                fullWidth
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                label="Status"
-                                name="status"
-                                value={ticket.status}
-                                onChange={handleChange}
-                                fullWidth
-                                required
-                            />
+                            <FormControl fullWidth required>
+                                <InputLabel>Status</InputLabel>
+                                <Select
+                                    label="Status"
+                                    name="status"
+                                    value={ticket.status}
+                                    onChange={handleChange}
+                                    fullWidth
+                                >
+                                    <MenuItem value="Open">Open</MenuItem>
+                                    <MenuItem value="In Progress">In Progress</MenuItem>
+                                    <MenuItem value="Resolved">Resolved</MenuItem>
+                                    <MenuItem value="Closed">Closed</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <Button type="submit" variant="contained" color="primary" fullWidth>

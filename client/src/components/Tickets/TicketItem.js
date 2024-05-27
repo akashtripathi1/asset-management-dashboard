@@ -4,7 +4,13 @@ import TicketContext from '../../context/tickets/ticketContext';
 
 const TicketItem = ({ ticket, onUpdate }) => {
     const { deleteTicket } = useContext(TicketContext);
-    const { ticketID, assetID, issueDescription, dateRaised, status } = ticket;
+    const { 
+        ticketID, 
+        assetID, 
+        issueDescription, 
+        dateRaised, 
+        status 
+    } = ticket;
 
     return (
         <Grid item xs={12} sm={6} md={4}>

@@ -20,7 +20,7 @@ const ticketReducer = (state, action) => {
           return {
             ...state,
             tickets: state.tickets.map(ticket =>
-              ticket.motorID === action.payload.motorID ? action.payload : ticket
+              ticket.ticketID === action.payload.ticketID ? action.payload : ticket
             )
           };
         case DELETE_TICKET:
