@@ -37,22 +37,23 @@ const DashboardCard = ({ title, totalValue, items }) => {
 
   return (
     <Paper sx={{
-      padding: 3,
+      padding: 4,
       borderRadius: '16px',
       overflow: 'hidden',
       boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
       backgroundColor: '#fff',
+      height: '100%',  
     }}>
       <Typography variant="h6" component="div" sx={{
-        mb: 2,
+        mb: 3,
         textAlign: 'left',
         color: '#2e2e2e',
       }}>
         {title}
       </Typography>
       <Box display="flex" alignItems="center"
-        justifyContent="center" minHeight={150}
-        position="relative" sx={{ mb: 2 }}
+        justifyContent="center" minHeight={200}
+        position="relative" sx={{ mb: 3 }}  
       >
         <Doughnut data={data} options={options} />
         <Box
@@ -76,11 +77,11 @@ const DashboardCard = ({ title, totalValue, items }) => {
         <Box key={index} sx={{
           display: 'flex',
           alignItems: 'center',
-          paddingY: '8px',
+          paddingY: '10px',
           position: 'relative',
           borderRadius: '12px',
           overflow: 'hidden',
-          mb: '8px',
+          mb: '10px',
           backgroundColor: '#f5f5f5'
         }}>
           <Box sx={{

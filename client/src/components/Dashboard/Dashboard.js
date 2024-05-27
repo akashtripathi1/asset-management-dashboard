@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <Container maxWidth="lg">
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <OverviewMetrics />
         </Grid>
         <Grid item xs={12} md={6}>

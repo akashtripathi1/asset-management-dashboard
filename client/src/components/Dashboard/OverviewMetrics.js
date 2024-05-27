@@ -24,7 +24,7 @@ const OverviewMetrics = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={6} lg={4}>
+      <Grid item xs={12} md={6}>
         <DashboardCard
           title="Total Assets"
           totalValue={assets.length}
@@ -35,7 +35,7 @@ const OverviewMetrics = () => {
           ]}
         />
       </Grid>
-      <Grid item xs={12} md={6} lg={4}>
+      <Grid item xs={12} md={6}>
         <DashboardCard
           title="Total Tickets"
           totalValue={tickets.length}
