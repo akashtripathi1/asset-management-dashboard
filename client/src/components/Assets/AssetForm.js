@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Box, Typography, TextField, Button, Grid } from '@mui/material';
-import { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
 
 const AssetForm = ({ open, handleClose, currentAsset }) => {
@@ -127,6 +126,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 onChange={handleChange}
                                 fullWidth
                                 required
+                                multiline
+                                rows={4}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -173,31 +174,46 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                             <TextField
                                 label="Installation Date"
                                 name="installationDate"
+                                type="date"
                                 value={asset.installationDate}
                                 onChange={handleChange}
                                 fullWidth
                                 required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 label="Last Maintenance Date"
                                 name="lastMaintenanceDate"
+                                type="date"
                                 value={asset.lastMaintenanceDate}
                                 onChange={handleChange}
                                 fullWidth
                                 required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                label="Status"
-                                name="status"
-                                value={asset.status}
-                                onChange={handleChange}
-                                fullWidth
-                                required
-                            />
+                            <FormControl fullWidth required>
+                                <InputLabel>Status</InputLabel>
+                                <Select
+                                    label="Status"
+                                    name="status"
+                                    value={asset.status}
+                                    onChange={handleChange}
+                                    fullWidth
+                                >
+                                    <MenuItem value="Open">Open</MenuItem>
+                                    <MenuItem value="In Progress">In Progress</MenuItem>
+                                    <MenuItem value="Resolved">Resolved</MenuItem>
+                                    <MenuItem value="Closed">Closed</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="subtitle1" gutterBottom>
