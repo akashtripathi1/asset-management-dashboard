@@ -1,8 +1,9 @@
 // src/components/dashboard/OverviewMetrics.js
 import React, { useContext, useEffect } from 'react';
-import { Grid, Paper, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
 import TicketContext from '../../context/tickets/ticketContext';
+import DashboardCard from './DashboardCard';
 
 const OverviewMetrics = () => {
   const { assets, loadAssets } = useContext(AssetContext);
@@ -22,54 +23,28 @@ const OverviewMetrics = () => {
   const resolvedTickets = tickets.filter(ticket => ticket.status === 'Resolved').length;
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">Total Assets</Typography>
-          <Typography variant="h4">{assets.length}</Typography>
-        </Paper>
+    <Grid container spacing={3}>
+      <Grid item xs={12} md={6} lg={4}>
+        <DashboardCard
+          title="Total Assets"
+          totalValue={assets.length}
+          items={[
+            { label: 'Operational', value: operationalAssets, color: 'operational' },
+            { label: 'Under Maintenance', value: underMaintenanceAssets, color: 'underMaintenance' },
+            { label: 'Out of Service', value: outOfServiceAssets, color: 'outOfService' },
+          ]}
+        />
       </Grid>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">Operational Assets</Typography>
-          <Typography variant="h4">{operationalAssets}</Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">Under Maintenance</Typography>
-          <Typography variant="h4">{underMaintenanceAssets}</Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">Out of Service</Typography>
-          <Typography variant="h4">{outOfServiceAssets}</Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">Total Tickets</Typography>
-          <Typography variant="h4">{tickets.length}</Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">Open Tickets</Typography>
-          <Typography variant="h4">{openTickets}</Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">In Progress Tickets</Typography>
-          <Typography variant="h4">{inProgressTickets}</Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <Paper>
-          <Typography variant="h6">Resolved Tickets</Typography>
-          <Typography variant="h4">{resolvedTickets}</Typography>
-        </Paper>
+      <Grid item xs={12} md={6} lg={4}>
+        <DashboardCard
+          title="Total Tickets"
+          totalValue={tickets.length}
+          items={[
+            { label: 'Open', value: openTickets, color: 'open' },
+            { label: 'In Progress', value: inProgressTickets, color: 'inProgress' },
+            { label: 'Resolved', value: resolvedTickets, color: 'resolved' },
+          ]}
+        />
       </Grid>
     </Grid>
   );
