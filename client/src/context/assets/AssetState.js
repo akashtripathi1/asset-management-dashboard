@@ -1,4 +1,4 @@
-// context/asset/AssetState.js
+// src/context/assets/AssetState.js
 
 import React, { useReducer } from 'react';
 import AssetContext from './assetContext';
@@ -29,7 +29,8 @@ const AssetState = props => {
           voltage: 380,
           current: 25,
           speed: 1400
-        }
+        },
+        lastModified: "2024-05-26T10:00:00.000Z"
       },
       {
         motorID: "MTR-003",
@@ -47,7 +48,8 @@ const AssetState = props => {
           voltage: 480,
           current: 30,
           speed: 1800
-        }
+        },
+        lastModified: "2024-05-25T09:00:00.000Z"
       },
       {
         motorID: "MTR-004",
@@ -65,7 +67,8 @@ const AssetState = props => {
           voltage: 240,
           current: 20,
           speed: 1200
-        }
+        },
+        lastModified: "2024-05-24T08:00:00.000Z"
       },
       {
         motorID: "MTR-005",
@@ -83,7 +86,8 @@ const AssetState = props => {
           voltage: 600,
           current: 40,
           speed: 900
-        }
+        },
+        lastModified: "2024-05-23T07:00:00.000Z"
       }
     ]
   };
@@ -97,11 +101,13 @@ const AssetState = props => {
 
   // Create Asset
   const createAsset = asset => {
+    asset.lastModified = new Date().toISOString();
     dispatch({ type: CREATE_ASSET, payload: asset });
   };
 
   // Update Asset
   const updateAsset = asset => {
+    asset.lastModified = new Date().toISOString();
     dispatch({ type: UPDATE_ASSET, payload: asset });
   };
 
