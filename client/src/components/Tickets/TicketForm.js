@@ -120,7 +120,6 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                                     <MenuItem value="Open">Open</MenuItem>
                                     <MenuItem value="In Progress">In Progress</MenuItem>
                                     <MenuItem value="Resolved">Resolved</MenuItem>
-                                    <MenuItem value="Closed">Closed</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

@@ -208,10 +208,9 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                     onChange={handleChange}
                                     fullWidth
                                 >
-                                    <MenuItem value="Open">Open</MenuItem>
-                                    <MenuItem value="In Progress">In Progress</MenuItem>
-                                    <MenuItem value="Resolved">Resolved</MenuItem>
-                                    <MenuItem value="Closed">Closed</MenuItem>
+                                    <MenuItem value="Operational">Operational</MenuItem>
+                                    <MenuItem value="Under Maintenance">Under Maintenance</MenuItem>
+                                    <MenuItem value="Out of Service">Out of Service</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
