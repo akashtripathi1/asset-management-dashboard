@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
-import { useContext } from 'react';
 import TicketContext from '../../context/tickets/ticketContext';
+import AssetContext from '../../context/assets/assetContext';
 
 const TicketForm = ({ open, handleClose, currentTicket }) => {
     const { createTicket, updateTicket } = useContext(TicketContext);
+    const { assets } = useContext(AssetContext);
     const [ticket, setTicket] = useState({
         ticketID: '',
         assetID: '',
         issueDescription: '',
         status: '',
     });
+    const [filteredAssets, setFilteredAssets] = useState([]);
 
     useEffect(() => {
         if (currentTicket) {
@@ -30,12 +32,17 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
         }
     }, [currentTicket]);
 
+    useEffect(() => {
+        setFilteredAssets(assets);
+    }, [assets]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setTicket({
             ...ticket,
             [name]: value,
         });
+
     };
 
     const handleSubmit = (e) => {
@@ -86,14 +93,30 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                label="Asset ID"
-                                name="assetID"
-                                value={ticket.assetID}
-                                onChange={handleChange}
-                                fullWidth
-                                required
-                            />
+                            <FormControl fullWidth required>
+                                <InputLabel>Asset ID</InputLabel>
+                                <Select
+                                    label="Asset ID"
+                                    name="assetID"
+                                    value={ticket.assetID}
+                                    onChange={handleChange}
+                                    fullWidth
+                                    renderValue={(selected) => selected}
+                                    MenuProps={{
+                                        PaperProps: {
+                                            style: {
+                                                maxHeight: 200,
+                                            },
+                                        },
+                                    }}
+                                >
+                                    {filteredAssets.map(asset => (
+                                        <MenuItem key={asset.motorID} value={asset.motorID}>
+                                            {asset.motorID}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
