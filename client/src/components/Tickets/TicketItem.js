@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Card, CardContent, CardActions, Button, Typography, Grid } from '@mui/material';
-import TicketContext from '../../context/tickets/ticketContext';
 
-const TicketItem = ({ ticket, onUpdate }) => {
-    const { deleteTicket } = useContext(TicketContext);
+const TicketItem = ({ ticket, onUpdate, onDelete }) => {
     const { 
         ticketID, 
         assetID, 
@@ -36,7 +34,7 @@ const TicketItem = ({ ticket, onUpdate }) => {
                     <Button size="small" color="primary" onClick={() => onUpdate(ticket)}>
                         Update
                     </Button>
-                    <Button size="small" color="secondary" onClick={() => deleteTicket(ticketID)}>
+                    <Button size="small" color="secondary" onClick={() => onDelete(ticket)}>
                         Delete
                     </Button>
                 </CardActions>

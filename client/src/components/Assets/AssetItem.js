@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Card, CardContent, CardActions, Button, Typography, Grid } from '@mui/material';
-import AssetContext from '../../context/assets/assetContext';
 
-const AssetItem = ({ asset, onUpdate }) => {
-    const { deleteAsset } = useContext(AssetContext);
+const AssetItem = ({ asset, onUpdate, onDelete }) => {
     const {
         motorID,
         name,
@@ -66,7 +64,7 @@ const AssetItem = ({ asset, onUpdate }) => {
                     <Button size="small" color="primary" onClick={() => onUpdate(asset)}>
                         Update
                     </Button>
-                    <Button size="small" color="secondary" onClick={() => deleteAsset(asset.motorID)}>
+                    <Button size="small" color="secondary" onClick={() => onDelete(asset)}>
                         Delete
                     </Button>
                 </CardActions>
