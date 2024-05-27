@@ -13,21 +13,24 @@ const RecentActivity = () => {
     loadTickets();
   }, []);
 
-  const recentAssets = assets.slice(-5).reverse();
-  const recentTickets = tickets.slice(-5).reverse();
+  const combinedActivities = [...assets, ...tickets]
+    .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified))
+    .slice(0, 4);
 
   return (
     <Paper style={{ padding: '16px', marginTop: '16px' }}>
       <Typography variant="h6">Recent Activity</Typography>
       <List>
-        {recentAssets.map((asset, index) => (
+        {combinedActivities.map((activity, index) => (
           <ListItem key={index}>
-            <ListItemText primary={`Asset Updated: ${asset.name}`} secondary={`Status: ${asset.status}`} />
-          </ListItem>
-        ))}
-        {recentTickets.map((ticket, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={`Ticket Raised: ${ticket.issueDescription}`} secondary={`Status: ${ticket.status}`} />
+            <ListItemText 
+              primary={
+                activity.name 
+                ? `Asset Updated: ${activity.name}` 
+                : `Ticket Raised: ${activity.issueDescription}`
+              }
+              secondary={`Status: ${activity.status} | Modified: ${new Date(activity.lastModified).toLocaleString()}`}
+            />
           </ListItem>
         ))}
       </List>
