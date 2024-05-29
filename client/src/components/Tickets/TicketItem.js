@@ -24,7 +24,7 @@ const TicketItem = ({ ticket, onUpdate, onDelete }) => {
                         Issue Description: {issueDescription}
                     </Typography>
                     <Typography variant="body2" component="p">
-                        Date Raised: {dateRaised}
+                        Date Raised: {dateRaised ? new Date(dateRaised).toISOString().split('T')[0]:''}
                     </Typography>
                     <Typography variant="body2" component="p">
                         Status: {status}

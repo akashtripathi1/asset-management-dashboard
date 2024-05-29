@@ -42,10 +42,10 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                         Serial Number: {serialNumber}
                     </Typography>
                     <Typography variant="body2" component="p">
-                        Installation Date: {installationDate}
+                        Installation Date: {installationDate ? new Date(installationDate).toISOString().split('T')[0] : ''}
                     </Typography>
                     <Typography variant="body2" component="p">
-                        Last Maintenance Date: {lastMaintenanceDate}
+                        Last Maintenance Date: {lastMaintenanceDate ? new Date(lastMaintenanceDate).toISOString().split('T')[0] : ''}
                     </Typography>
                     <Typography variant="body2" component="p">
                         Status: {status}
@@ -54,10 +54,10 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                         Specifications:
                     </Typography>
                     <ul>
-                        <li>Power: {power}</li>
-                        <li>Voltage: {voltage}</li>
-                        <li>Current: {current}</li>
-                        <li>Speed: {speed}</li>
+                        <li>Power: {power} W</li>
+                        <li>Voltage: {voltage} V</li>
+                        <li>Current: {current} A</li>
+                        <li>Speed: {speed} rpm</li>
                     </ul>
                 </CardContent>
                 <CardActions>

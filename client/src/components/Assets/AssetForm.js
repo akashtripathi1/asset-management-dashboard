@@ -232,7 +232,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Power"
+                                label="Power (in W)"
                                 name="power"
                                 value={asset.specifications.power}
                                 onChange={handleChange}
@@ -242,7 +242,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Voltage"
+                                label="Voltage (in V)"
                                 name="voltage"
                                 value={asset.specifications.voltage}
                                 onChange={handleChange}
@@ -252,7 +252,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Current"
+                                label="Current (in A)"
                                 name="current"
                                 value={asset.specifications.current}
                                 onChange={handleChange}
@@ -262,7 +262,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                label="Speed"
+                                label="Speed (in RPM)"
                                 name="speed"
                                 value={asset.specifications.speed}
                                 onChange={handleChange}
