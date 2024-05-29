@@ -11,8 +11,8 @@ const TicketsTable = () => {
   }, []);
 
   return (
-    <TableContainer component={Paper} style={{ marginTop: '16px' }}>
-      <Typography variant="h6" style={{ padding: '16px' }}>Tickets Overview</Typography>
+    <TableContainer component={Paper} sx={{ mt: '2' }}>
+      <Typography variant="h6" style={{ padding: '2' }}>Tickets Overview</Typography>
       <Table>
         <TableHead>
           <TableRow>

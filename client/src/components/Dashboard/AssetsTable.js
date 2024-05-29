@@ -1,4 +1,3 @@
-// src/components/dashboard/AssetsTable.js
 import React, { useContext, useEffect } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
@@ -11,8 +10,8 @@ const AssetsTable = () => {
   }, []);
 
   return (
-    <TableContainer component={Paper} style={{ marginTop: '16px' }}>
-      <Typography variant="h6" style={{ padding: '16px' }}>Assets Details</Typography>
+    <TableContainer component={Paper} sx={{ mt: 2 }}>
+      <Typography variant="h6" sx={{ padding: 2 }}>Assets Details</Typography>
       <Table>
         <TableHead>
           <TableRow>

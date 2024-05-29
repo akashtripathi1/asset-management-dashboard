@@ -1,4 +1,3 @@
-// src/components/dashboard/OverviewMetrics.js
 import React, { useContext, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
@@ -24,7 +23,7 @@ const OverviewMetrics = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
         <DashboardCard
           title="Total Assets"
           totalValue={assets.length}
@@ -35,7 +34,7 @@ const OverviewMetrics = () => {
           ]}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
         <DashboardCard
           title="Total Tickets"
           totalValue={tickets.length}

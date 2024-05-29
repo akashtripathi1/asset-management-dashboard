@@ -1,4 +1,3 @@
-// src/components/dashboard/DashboardCard.js
 import React from 'react';
 import { Paper, Typography, Box } from '@mui/material';
 import { Doughnut } from 'react-chartjs-2';
@@ -37,40 +36,23 @@ const DashboardCard = ({ title, totalValue, items }) => {
 
   return (
     <Paper sx={{
-      padding: 4,
+      padding: 2,
       borderRadius: '16px',
       overflow: 'hidden',
       boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
       backgroundColor: '#fff',
-      height: '100%',  
+      height: '100%',
+      maxWidth: '400px',  // Limit the maximum width of the card
+      width: '100%',      // Ensure the card takes full width of its container
     }}>
-      <Typography variant="h6" component="div" sx={{
-        mb: 3,
-        textAlign: 'left',
-        color: '#2e2e2e',
-      }}>
+      <Typography variant="h6" component="div" sx={{ mb: 2, textAlign: 'left', color: '#2e2e2e' }}>
         {title}
       </Typography>
-      <Box display="flex" alignItems="center"
-        justifyContent="center" minHeight={200}
-        position="relative" sx={{ mb: 3 }}  
-      >
+      <Box display="flex" alignItems="center" justifyContent="center" minHeight={200} position="relative" sx={{ mb: 2 }}>
         <Doughnut data={data} options={options} />
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            textAlign: 'center',
-          }}
-        >
-          <Typography variant="caption" component="div" sx={{ color: '#5f6368' }}>
-            Total
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ color: '#2e2e2e' }}>
-            {totalValue}
-          </Typography>
+        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}>
+          <Typography variant="caption" component="div" sx={{ color: '#5f6368' }}>Total</Typography>
+          <Typography variant="h6" component="div" sx={{ color: '#2e2e2e' }}>{totalValue}</Typography>
         </Box>
       </Box>
       {items.map((item, index) => (
@@ -90,21 +72,8 @@ const DashboardCard = ({ title, totalValue, items }) => {
             position: 'absolute',
             background: `linear-gradient(to right, #f5f5f5 0%, ${colors[item.color]} 100%)`
           }} />
-          <Typography variant="body2" component="div" sx={{
-            pl: '16px',
-            zIndex: 1,
-            color: '#0f0d0e',
-          }}>
-            {item.label}
-          </Typography>
-          <Typography variant="body2" component="div" sx={{
-            position: 'absolute',
-            right: '16px',
-            zIndex: 1,
-            color: '#0f0d0e',
-          }}>
-            {item.value}
-          </Typography>
+          <Typography variant="body2" component="div" sx={{ pl: '16px', zIndex: 1, color: '#0f0d0e' }}>{item.label}</Typography>
+          <Typography variant="body2" component="div" sx={{ position: 'absolute', right: '16px', zIndex: 1, color: '#0f0d0e' }}>{item.value}</Typography>
         </Box>
       ))}
     </Paper>

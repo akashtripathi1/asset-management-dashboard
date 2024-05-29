@@ -1,4 +1,3 @@
-// src/components/dashboard/RecentActivity.js
 import React, { useContext, useEffect } from 'react';
 import { List, ListItem, ListItemText, Paper, Typography } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
@@ -18,17 +17,13 @@ const RecentActivity = () => {
     .slice(0, 4);
 
   return (
-    <Paper style={{ padding: '16px', marginTop: '16px' }}>
+    <Paper sx={{ padding: 2, mt: 2 }}>
       <Typography variant="h6">Recent Activity</Typography>
       <List>
         {combinedActivities.map((activity, index) => (
           <ListItem key={index}>
             <ListItemText 
-              primary={
-                activity.name 
-                ? `Asset Updated: ${activity.name}` 
-                : `Ticket Raised: ${activity.issueDescription}`
-              }
+              primary={activity.name ? `Asset Updated: ${activity.name}` : `Ticket Raised: ${activity.issueDescription}`}
               secondary={`Status: ${activity.status} | Modified: ${new Date(activity.lastModified).toLocaleString()}`}
             />
           </ListItem>

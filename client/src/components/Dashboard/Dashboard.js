@@ -1,4 +1,3 @@
-// src/components/dashboard/Dashboard.js
 import React from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import OverviewMetrics from './OverviewMetrics';
@@ -8,7 +7,7 @@ import TicketsTable from './TicketsTable';
 
 const Dashboard = () => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Dashboard
       </Typography>
