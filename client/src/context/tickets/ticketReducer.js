@@ -9,7 +9,8 @@ const ticketReducer = (state, action) => {
   switch (action.type) {
     case LOAD_TICKETS:
       return {
-        ...state
+        ...state,
+        tickets: action.payload
       };
       case CREATE_TICKET:
         return {
@@ -26,7 +27,7 @@ const ticketReducer = (state, action) => {
         case DELETE_TICKET:
           return {
             ...state,
-            tickets: state.tickets.filter(ticket => ticket.ticketID !== action.payload)
+            tickets: state.tickets.filter(ticket => ticket._id !== action.payload)
           };
     default:
       return state;

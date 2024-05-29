@@ -16,12 +16,7 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
 
     useEffect(() => {
         if (currentTicket) {
-            setTicket({
-                ticketID: currentTicket.ticketID,
-                assetID: currentTicket.assetID,
-                issueDescription: currentTicket.issueDescription,
-                status: currentTicket.status,
-            });
+            setTicket(currentTicket);
         } else {
             setTicket({
                 ticketID: '',
@@ -47,14 +42,10 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const updatedTicket = {
-            ...ticket,
-            dateRaised: new Date().toISOString(),
-        };
         if (currentTicket) {
-            updateTicket(updatedTicket);
+            updateTicket(ticket);
         } else {
-            createTicket(updatedTicket);
+            createTicket(ticket);
         }
         handleClose();
     };

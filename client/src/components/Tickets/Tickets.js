@@ -35,7 +35,7 @@ const Tickets = () => {
     };
 
     const handleConfirmDelete = () => {
-        deleteTicket(ticketToDelete.ticketID);
+        deleteTicket(ticketToDelete);
         setDeleteOpen(false);
     };
 

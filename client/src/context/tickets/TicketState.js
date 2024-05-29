@@ -25,25 +25,46 @@ const TicketState = props => {
   }, []);
 
   // Load Tickets
-  const loadTickets = () => {
-    dispatch({ type: LOAD_TICKETS });
+  const loadTickets = async () => {
+    try {
+      const res = await axios.get('/api/tickets');
+      dispatch({type: LOAD_TICKETS, payload: res.data});
+    } catch (error) {
+      console.error(error) ;     
+    }
   };
 
   // Create Ticket
-  const createTicket = ticket => {
-    ticket.lastModified = new Date().toISOString();
-    dispatch({ type: CREATE_TICKET, payload: ticket });
+  const createTicket = async ticket => {
+    try {
+      ticket.dateRaised = new Date().toISOString();
+      ticket.lastModified = new Date().toISOString();
+      const res = await axios.post('/api/tickets', ticket);
+      dispatch({ type: CREATE_TICKET, payload: res.data });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // Update Ticket
-  const updateTicket = ticket => {
-    ticket.lastModified = new Date().toISOString();
-    dispatch({ type: UPDATE_TICKET, payload: ticket });
+  const updateTicket = async ticket => {
+    try {
+      ticket.lastModified = new Date().toISOString();
+      const res = await axios.put(`/api/tickets/${ticket._id}`, ticket);
+      dispatch({ type: UPDATE_TICKET, payload: res.data });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // Delete Ticket
-  const deleteTicket = ticketID => {
-    dispatch({ type: DELETE_TICKET, payload: ticketID });
+  const deleteTicket = async ticket => {
+    try {
+      await axios.delete(`/api/tickets/${ticket._id}`);
+      dispatch({ type: DELETE_TICKET, payload: ticket._id });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
