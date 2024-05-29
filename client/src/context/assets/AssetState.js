@@ -16,6 +16,9 @@ const AssetState = props => {
 
   const [state, dispatch] = useReducer(assetReducer, initialState);
 
+  axios.defaults.baseURL = 'http://localhost:5000';
+
+
   useEffect(() => {
     loadAssets();
   }, []);
@@ -23,8 +26,7 @@ const AssetState = props => {
   // Load Assets
   const loadAssets = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/assets');
-      console.log(res.data)
+      const res = await axios.get('/api/assets');
       dispatch({ type: LOAD_ASSETS, payload: res.data });
     } catch (err) {
       console.error(err);
@@ -35,7 +37,7 @@ const AssetState = props => {
   const createAsset = async asset => {
     try {
       asset.lastModified = new Date().toISOString();
-      const res = await axios.post('http://localhost:5000/api/assets', asset);
+      const res = await axios.post('/api/assets', asset);
       dispatch({ type: CREATE_ASSET, payload: res.data });
     } catch (err) {
       console.error(err);
@@ -46,7 +48,7 @@ const AssetState = props => {
   const updateAsset = async asset => {
     try {
       asset.lastModified = new Date().toISOString();
-      const res = await axios.put(`http://localhost:5000/api/assets/${asset._id}`, asset);
+      const res = await axios.put(`/api/assets/${asset._id}`, asset);
       dispatch({ type: UPDATE_ASSET, payload: res.data });
     } catch (err) {
       console.error(err);
@@ -56,7 +58,7 @@ const AssetState = props => {
   // Delete Asset
   const deleteAsset = async asset => {
     try {
-      await axios.delete(`http://localhost:5000/api/assets/${asset._id}`);
+      await axios.delete(`/api/assets/${asset._id}`);
       dispatch({ type: DELETE_ASSET, payload: asset._id });
     } catch (err) {
       console.error(err);

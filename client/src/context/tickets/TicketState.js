@@ -1,6 +1,7 @@
 // src/context/tickets/TicketState.js
 
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
+import axios from 'axios';
 import TicketContext from './ticketContext';
 import ticketReducer from './ticketReducer';
 import { 
@@ -12,43 +13,16 @@ import {
 
 const TicketState = props => {
   const initialState = {
-    tickets: [
-      {
-        ticketID: "TCK-102",
-        assetID: "MTR-002",
-        issueDescription: "Motor is overheating.",
-        dateRaised: "2023-05-22",
-        status: "Open",
-        lastModified: "2024-05-22T06:00:00.000Z"
-      },
-      {
-        ticketID: "TCK-103",
-        assetID: "MTR-003",
-        issueDescription: "Motor is making strange noises.",
-        dateRaised: "2023-07-10",
-        status: "In Progress",
-        lastModified: "2024-05-21T05:00:00.000Z"
-      },
-      {
-        ticketID: "TCK-104",
-        assetID: "MTR-004",
-        issueDescription: "Agitator motor shaft is vibrating excessively.",
-        dateRaised: "2023-09-05",
-        status: "Resolved",
-        lastModified: "2024-05-20T04:00:00.000Z"
-      },
-      {
-        ticketID: "TCK-105",
-        assetID: "MTR-005",
-        issueDescription: "Cooling tower fan is not starting up.",
-        dateRaised: "2023-06-30",
-        status: "Open",
-        lastModified: "2024-05-19T03:00:00.000Z"
-      }
-    ]
+    tickets: []
   };
 
+  axios.defaults.baseURL = 'http://localhost:5000';
+
+
   const [state, dispatch] = useReducer(ticketReducer, initialState);
+  useEffect(() => {
+    loadTickets();
+  }, []);
 
   // Load Tickets
   const loadTickets = () => {
