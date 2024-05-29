@@ -25,7 +25,18 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
 
     useEffect(() => {
         if (currentAsset) {
-            setAsset(currentAsset);
+            // Convert ISO date string to Date object
+            const installationDate = new Date(currentAsset.installationDate);
+            const lastMaintenanceDate = new Date(currentAsset.lastMaintenanceDate);
+
+            // Get date parts
+            const installationDateString = installationDate.toISOString().split('T')[0];
+            const lastMaintenanceDateString = lastMaintenanceDate.toISOString().split('T')[0];
+            setAsset({
+                ...currentAsset,
+                installationDate: installationDateString,
+                lastMaintenanceDate: lastMaintenanceDateString
+            });
         } else {
             setAsset({
                 motorID: '',
@@ -78,19 +89,19 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
 
     return (
         <Modal open={open} onClose={handleClose}>
-            <Box sx={{ 
-                position: 'absolute', 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)', 
-                width: '90%', 
-                maxWidth: 600, 
-                height: '90%', 
-                bgcolor: 'background.paper', 
-                p: 4, 
-                boxShadow: 24, 
-                borderRadius: 2, 
-                overflowY: 'auto' 
+            <Box sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '90%',
+                maxWidth: 600,
+                height: '90%',
+                bgcolor: 'background.paper',
+                p: 4,
+                boxShadow: 24,
+                borderRadius: 2,
+                overflowY: 'auto'
             }}>
                 <Typography variant="h6" component="h2" gutterBottom>
                     {currentAsset ? 'Update Asset' : 'Add New Asset'}
