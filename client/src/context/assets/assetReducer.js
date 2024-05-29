@@ -9,7 +9,8 @@ const assetReducer = (state, action) => {
   switch (action.type) {
     case LOAD_ASSETS:
       return {
-        ...state
+        ...state,
+        assets: action.payload
       };
       case CREATE_ASSET:
         return {
@@ -26,7 +27,7 @@ const assetReducer = (state, action) => {
         case DELETE_ASSET:
           return {
             ...state,
-            assets: state.assets.filter(asset => asset.motorID !== action.payload)
+            assets: state.assets.filter(asset => asset._id !== action.payload)
           };
     default:
       return state;

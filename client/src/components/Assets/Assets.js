@@ -35,7 +35,7 @@ const Assets = () => {
     };
 
     const handleConfirmDelete = () => {
-        deleteAsset(assetToDelete.motorID);
+        deleteAsset(assetToDelete);
         setDeleteOpen(false);
     };
 
