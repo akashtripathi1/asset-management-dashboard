@@ -17,6 +17,7 @@ const assetSchema = new mongoose.Schema({
     current: Number,
     speed: Number,
   },
+  lastModified: Date,
 });
 
 const Asset = mongoose.model('Asset', assetSchema);
