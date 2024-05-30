@@ -10,6 +10,12 @@ const getAllTickets = async (req, res) => {
     }
 }
 const createTicket = async (req, res) => {
+    const { ticketID } = req.body
+    const ticketIDExists = await Asset.findOne({ ticketID });
+    if(ticketIDExists){
+        return res.status(400).json({msg: 'Ticket ID Already Exists'})
+    }
+
     const ticket = new Ticket(req.body);
     try {
 

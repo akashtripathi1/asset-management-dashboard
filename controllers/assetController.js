@@ -12,6 +12,13 @@ const getAllAssets = async (req, res) =>{
 
 
 const createAsset = async (req, res) =>{
+
+    const {motorID} = req.body;
+    const motorIDExists = await Asset.findOne({motorID});
+    if(motorIDExists){
+        return res.status(400).json({msg: 'Motor ID Already Exists'})
+    }
+    
     const asset = new Asset(req.body);
     try {
         const newAsset = await asset.save();

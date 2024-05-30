@@ -23,6 +23,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
         }
     });
 
+
+
     useEffect(() => {
         if (currentAsset) {
             // Convert ISO date string to Date object
@@ -84,6 +86,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
         } else {
             createAsset(asset);
         }
+
+        
         handleClose();
     };
 
