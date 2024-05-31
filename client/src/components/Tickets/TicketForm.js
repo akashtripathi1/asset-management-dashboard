@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@mui/material';
 import TicketContext from '../../context/tickets/ticketContext';
 import AssetContext from '../../context/assets/assetContext';
 
@@ -12,6 +12,7 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
         issueDescription: '',
         status: '',
     });
+    const [errors, setErrors] = useState({});
     const [filteredAssets, setFilteredAssets] = useState([]);
 
     useEffect(() => {
@@ -33,15 +34,28 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
         setTicket({
             ...ticket,
             [name]: value,
         });
+    };
 
+    const validateForm = () => {
+        const newErrors = {};
+        if (!ticket.ticketID) newErrors.ticketID = 'Ticket ID is required';
+        if (!ticket.assetID) newErrors.assetID = 'Asset ID is required';
+        if (!ticket.issueDescription) newErrors.issueDescription = 'Issue Description is required';
+        if (!ticket.status) newErrors.status = 'Status is required';
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
+
         if (currentTicket) {
             updateTicket(ticket);
         } else {
@@ -50,8 +64,13 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
         handleClose();
     };
 
+    const handleCloseModal = () => {
+        setErrors({});
+        handleClose();
+    };
+
     return (
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleCloseModal}>
             <Box sx={{ 
                 position: 'absolute', 
                 top: '50%', 
@@ -79,12 +98,13 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                                 value={ticket.ticketID}
                                 onChange={handleChange}
                                 fullWidth
-                                required
                                 disabled={currentTicket ? true : false}
+                                error={!!errors.ticketID}
+                                helperText={errors.ticketID}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControl fullWidth required>
+                            <FormControl fullWidth error={!!errors.assetID}>
                                 <InputLabel>Asset ID</InputLabel>
                                 <Select
                                     label="Asset ID"
@@ -107,6 +127,7 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                                         </MenuItem>
                                     ))}
                                 </Select>
+                                <FormHelperText>{errors.assetID}</FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
@@ -116,13 +137,14 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                                 value={ticket.issueDescription}
                                 onChange={handleChange}
                                 fullWidth
-                                required
                                 multiline
                                 rows={4}
+                                error={!!errors.issueDescription}
+                                helperText={errors.issueDescription}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControl fullWidth required>
+                            <FormControl fullWidth error={!!errors.status}>
                                 <InputLabel>Status</InputLabel>
                                 <Select
                                     label="Status"
@@ -135,6 +157,7 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                                     <MenuItem value="In Progress">In Progress</MenuItem>
                                     <MenuItem value="Resolved">Resolved</MenuItem>
                                 </Select>
+                                <FormHelperText>{errors.status}</FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>

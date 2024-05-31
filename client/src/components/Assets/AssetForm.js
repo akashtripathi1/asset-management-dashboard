@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
 
 const AssetForm = ({ open, handleClose, currentAsset }) => {
@@ -23,17 +23,12 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
         }
     });
 
-    // Function Validate form
-
-
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (currentAsset) {
-            // Convert ISO date string to Date object
             const installationDate = new Date(currentAsset.installationDate);
             const lastMaintenanceDate = new Date(currentAsset.lastMaintenanceDate);
-
-            // Get date parts
             const installationDateString = installationDate.toISOString().split('T')[0];
             const lastMaintenanceDateString = lastMaintenanceDate.toISOString().split('T')[0];
             setAsset({
@@ -65,6 +60,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
         if (name in asset.specifications) {
             setAsset({
                 ...asset,
@@ -81,20 +77,47 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
         }
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+        if (!asset.motorID) newErrors.motorID = 'Motor ID is required';
+        if (!asset.name) newErrors.name = 'Name is required';
+        if (!asset.description) newErrors.description = 'Description is required';
+        if (!asset.location) newErrors.location = 'Location is required';
+        if (!asset.manufacturer) newErrors.manufacturer = 'Manufacturer is required';
+        if (!asset.modelNumber) newErrors.modelNumber = 'Model Number is required';
+        if (!asset.serialNumber) newErrors.serialNumber = 'Serial Number is required';
+        if (!asset.installationDate) newErrors.installationDate = 'Installation Date is required';
+        if (!asset.lastMaintenanceDate) newErrors.lastMaintenanceDate = 'Last Maintenance Date is required';
+        if (!asset.status) newErrors.status = 'Status is required';
+        if (!asset.specifications.power) newErrors.power = 'Power is required';
+        if (!asset.specifications.voltage) newErrors.voltage = 'Voltage is required';
+        if (!asset.specifications.current) newErrors.current = 'Current is required';
+        if (!asset.specifications.speed) newErrors.speed = 'Speed is required';
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
+
         if (currentAsset) {
             updateAsset(asset);
         } else {
             createAsset(asset);
         }
 
-        
+        handleClose();
+    };
+
+    const handleCloseModal = () => {
+        setErrors({});
         handleClose();
     };
 
     return (
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleCloseModal}>
             <Box sx={{
                 position: 'absolute',
                 top: '50%',
@@ -121,8 +144,9 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.motorID}
                                 onChange={handleChange}
                                 fullWidth
-                                required
                                 disabled={currentAsset ? true : false}
+                                error={!!errors.motorID}
+                                helperText={errors.motorID}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -132,7 +156,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.name}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.name}
+                                helperText={errors.name}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -142,9 +167,10 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.description}
                                 onChange={handleChange}
                                 fullWidth
-                                required
                                 multiline
                                 rows={4}
+                                error={!!errors.description}
+                                helperText={errors.description}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -154,7 +180,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.location}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.location}
+                                helperText={errors.location}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -164,7 +191,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.manufacturer}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.manufacturer}
+                                helperText={errors.manufacturer}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -174,7 +202,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.modelNumber}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.modelNumber}
+                                helperText={errors.modelNumber}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -184,7 +213,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.serialNumber}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.serialNumber}
+                                helperText={errors.serialNumber}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -195,10 +225,11 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.installationDate}
                                 onChange={handleChange}
                                 fullWidth
-                                required
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                error={!!errors.installationDate}
+                                helperText={errors.installationDate}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -209,14 +240,15 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.lastMaintenanceDate}
                                 onChange={handleChange}
                                 fullWidth
-                                required
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                error={!!errors.lastMaintenanceDate}
+                                helperText={errors.lastMaintenanceDate}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControl fullWidth required>
+                            <FormControl fullWidth error={!!errors.status}>
                                 <InputLabel>Status</InputLabel>
                                 <Select
                                     label="Status"
@@ -229,6 +261,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                     <MenuItem value="Under Maintenance">Under Maintenance</MenuItem>
                                     <MenuItem value="Out of Service">Out of Service</MenuItem>
                                 </Select>
+                                <FormHelperText>{errors.status}</FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
@@ -243,7 +276,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.specifications.power}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.power}
+                                helperText={errors.power}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -253,7 +287,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.specifications.voltage}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.voltage}
+                                helperText={errors.voltage}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -263,7 +298,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.specifications.current}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.current}
+                                helperText={errors.current}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -273,7 +309,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                                 value={asset.specifications.speed}
                                 onChange={handleChange}
                                 fullWidth
-                                required
+                                error={!!errors.speed}
+                                helperText={errors.speed}
                             />
                         </Grid>
                         <Grid item xs={12}>
