@@ -16,8 +16,13 @@ const AssetState = props => {
 
   const [state, dispatch] = useReducer(assetReducer, initialState);
 
-  axios.defaults.baseURL = 'http://localhost:5000';
+  // axios.defaults.baseURL = 'http://localhost:5000';
 
+  if (process.env.NODE_ENV === 'production') {
+    axios.defaults.baseURL = 'http://localhost:5000';
+} else {
+    axios.defaults.baseURL = 'http://localhost:5000';
+}
 
   useEffect(() => {
     loadAssets();

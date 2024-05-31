@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://akashtripathi1729:fHutIldPhvg0F7Rn@asset-management-dashbo.hdugsam.mongodb.net/?retryWrites=true&w=majority&appName=asset-management-dashboard",
+    "jwtSecret": "secret"
+}

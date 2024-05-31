@@ -16,8 +16,11 @@ const TicketState = props => {
     tickets: []
   };
 
-  axios.defaults.baseURL = 'http://localhost:5000';
-
+  if (process.env.NODE_ENV === 'production') {
+    axios.defaults.baseURL = 'http://localhost:5000';
+} else {
+    axios.defaults.baseURL = 'http://localhost:5000';
+}
 
   const [state, dispatch] = useReducer(ticketReducer, initialState);
   useEffect(() => {
