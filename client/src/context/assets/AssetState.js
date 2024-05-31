@@ -19,7 +19,7 @@ const AssetState = props => {
   // axios.defaults.baseURL = 'http://localhost:5000';
 
   if (process.env.NODE_ENV === 'production') {
-    axios.defaults.baseURL = 'http://localhost:5000';
+    axios.defaults.baseURL = 'https://intense-spire-24748-8204f9b5a750.herokuapp.com';
 } else {
     axios.defaults.baseURL = 'http://localhost:5000';
 }
