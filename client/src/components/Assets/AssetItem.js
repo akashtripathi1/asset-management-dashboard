@@ -1,11 +1,24 @@
 import React from 'react';
-import { TableRow, TableCell, IconButton, Collapse, Box, Typography, Button, Table, TableBody, TableContainer, Paper } from '@mui/material';
+import { TableRow, TableCell, IconButton, Collapse, Box, Typography, Button, Table, TableBody, TableContainer, Paper, Chip } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const AssetItem = ({ asset, onUpdate, onDelete }) => {
     const [open, setOpen] = React.useState(false);
     const { motorID, name, description, location, manufacturer, modelNumber, serialNumber, installationDate, lastMaintenanceDate, status, specifications: { power, voltage, current, speed } } = asset;
+
+    const getColor = (status) => {
+        switch (status) {
+            case 'Operational':
+              return { backgroundColor: '#7fd1b9', color: '#ffffff' }; // green
+            case 'Under Maintenance':
+              return { backgroundColor: '#f4d158', color: '#ffffff' }; // red
+            case 'Out of Service':
+              return { backgroundColor: '#ff6b6b', color: '#ffffff' }; // orange
+            default:
+              return { backgroundColor: '#e0e0e0', color: '#000000' }; // grey
+          }
+    };
 
     return (
         <React.Fragment>
@@ -25,7 +38,9 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                 <TableCell>{name}</TableCell>
                 <TableCell>{description}</TableCell>
                 <TableCell>{location}</TableCell>
-                <TableCell>{status}</TableCell>
+                <TableCell>
+                    <Chip label={status} style={getColor(status)} />
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

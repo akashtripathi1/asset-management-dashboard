@@ -1,11 +1,24 @@
 import React from 'react';
-import { TableRow, TableCell, IconButton, Collapse, Box, Typography, Button, Table, TableBody, TableContainer, Paper } from '@mui/material';
+import { TableRow, TableCell, IconButton, Collapse, Box, Typography, Button, Table, TableBody, TableContainer, Paper, Chip } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const TicketItem = ({ ticket, onUpdate, onDelete }) => {
     const [open, setOpen] = React.useState(false);
     const { ticketID, assetID, issueDescription, dateRaised, status } = ticket;
+
+    const getColor = (status) => {
+        switch (status) {
+            case 'Open':
+              return { backgroundColor: '#7c5ffa', color: '#ffffff' }; // green
+            case 'Resolved':
+              return { backgroundColor: '#7fd1b9', color: '#ffffff' }; // red
+            case 'In Progress':
+              return { backgroundColor: '#f4d158', color: '#ffffff' }; // orange
+            default:
+              return { backgroundColor: '#e0e0e0', color: '#000000' }; // grey
+          }
+    };
 
     return (
         <React.Fragment>
@@ -25,7 +38,9 @@ const TicketItem = ({ ticket, onUpdate, onDelete }) => {
                 <TableCell>{assetID}</TableCell>
                 <TableCell>{issueDescription}</TableCell>
                 <TableCell>{dateRaised ? new Date(dateRaised).toISOString().split('T')[0] : ''}</TableCell>
-                <TableCell>{status}</TableCell>
+                <TableCell>
+                    <Chip label={status} style={getColor(status)} />
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
