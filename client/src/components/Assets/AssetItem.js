@@ -1,75 +1,94 @@
 import React from 'react';
-import { Card, CardContent, CardActions, Button, Typography, Grid } from '@mui/material';
+import { TableRow, TableCell, IconButton, Collapse, Box, Typography, Button, Table, TableBody, TableContainer, Paper } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const AssetItem = ({ asset, onUpdate, onDelete }) => {
-    const {
-        motorID,
-        name,
-        description,
-        location,
-        manufacturer,
-        modelNumber,
-        serialNumber,
-        installationDate,
-        lastMaintenanceDate,
-        status,
-        specifications: { power, voltage, current, speed },
-    } = asset;
+    const [open, setOpen] = React.useState(false);
+    const { motorID, name, description, location, manufacturer, modelNumber, serialNumber, installationDate, lastMaintenanceDate, status, specifications: { power, voltage, current, speed } } = asset;
 
     return (
-        <Grid item xs={12} sm={6} md={4}>
-            <Card>
-                <CardContent>
-                    <Typography variant="h5" component="h2">
-                        {name}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Motor ID: {motorID}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Description: {description}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Location: {location}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Manufacturer: {manufacturer}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Model Number: {modelNumber}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Serial Number: {serialNumber}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Installation Date: {installationDate ? new Date(installationDate).toISOString().split('T')[0] : ''}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Last Maintenance Date: {lastMaintenanceDate ? new Date(lastMaintenanceDate).toISOString().split('T')[0] : ''}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Status: {status}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        Specifications:
-                    </Typography>
-                    <ul>
-                        <li>Power: {power} W</li>
-                        <li>Voltage: {voltage} V</li>
-                        <li>Current: {current} A</li>
-                        <li>Speed: {speed} rpm</li>
-                    </ul>
-                </CardContent>
-                <CardActions>
-                    <Button size="small" color="primary" onClick={() => onUpdate(asset)}>
-                        Update
-                    </Button>
-                    <Button size="small" color="secondary" onClick={() => onDelete(asset)}>
-                        Delete
-                    </Button>
-                </CardActions>
-            </Card>
-        </Grid>
+        <React.Fragment>
+            <TableRow>
+                <TableCell>
+                    <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setOpen(!open)}
+                    >
+                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {motorID}
+                </TableCell>
+                <TableCell>{name}</TableCell>
+                <TableCell>{description}</TableCell>
+                <TableCell>{location}</TableCell>
+                <TableCell>{manufacturer}</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <Box sx={{ margin: 1 }}>
+                            <Typography variant="h6" gutterBottom component="div">
+                                Asset Details
+                            </Typography>
+                            <TableContainer component={Paper}>
+                                <Table size="small" aria-label="asset details">
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>Model Number</TableCell>
+                                            <TableCell>{modelNumber}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Serial Number</TableCell>
+                                            <TableCell>{serialNumber}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Installation Date</TableCell>
+                                            <TableCell>{installationDate ? new Date(installationDate).toISOString().split('T')[0] : ''}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Last Maintenance Date</TableCell>
+                                            <TableCell>{lastMaintenanceDate ? new Date(lastMaintenanceDate).toISOString().split('T')[0] : ''}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Status</TableCell>
+                                            <TableCell>{status}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Power</TableCell>
+                                            <TableCell>{power} W</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Voltage</TableCell>
+                                            <TableCell>{voltage} V</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Current</TableCell>
+                                            <TableCell>{current} A</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Speed</TableCell>
+                                            <TableCell>{speed} rpm</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            <div style={{ display: "flex", gap: "8px" }}>
+                                <Button size="small" color="primary" variant="outlined" onClick={() => onUpdate(asset)}>
+                                    Update
+                                </Button>
+                                <Button size="small" color="secondary" variant="outlined" onClick={() => onDelete(asset)}>
+                                    Delete
+                                </Button>
+                            </div>
+                        </Box>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </React.Fragment>
     );
 };
 

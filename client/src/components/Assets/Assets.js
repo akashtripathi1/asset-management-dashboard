@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Grid, Container, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Container, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
 import AssetItem from './AssetItem';
 import AssetForm from './AssetForm';
@@ -52,11 +52,25 @@ const Assets = () => {
                 Add Asset
             </Button>
             <AssetForm open={open} handleClose={handleClose} currentAsset={currentAsset} />
-            <Grid container spacing={3}>
-                {assets.map((asset) => (
-                    <AssetItem key={asset.motorID} asset={asset} onUpdate={handleUpdate} onDelete={handleDelete} />
-                ))}
-            </Grid>
+            <TableContainer component={Paper}>
+                <Table aria-label="collapsible table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell />
+                            <TableCell>Motor ID</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Description</TableCell>
+                            <TableCell>Location</TableCell>
+                            <TableCell>Manufacturer</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {assets.map((asset) => (
+                            <AssetItem key={asset.motorID} asset={asset} onUpdate={handleUpdate} onDelete={handleDelete} />
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
             <Dialog open={deleteOpen} onClose={handleCancelDelete}>
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <DialogContent>

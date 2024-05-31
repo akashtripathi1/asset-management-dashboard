@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Grid, Container, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Container, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import TicketContext from '../../context/tickets/ticketContext';
 import TicketItem from './TicketItem';
 import TicketForm from './TicketForm';
@@ -52,11 +52,25 @@ const Tickets = () => {
                 Add Ticket
             </Button>
             <TicketForm open={open} handleClose={handleClose} currentTicket={currentTicket} />
-            <Grid container spacing={3}>
-                {tickets.map((ticket) => (
-                    <TicketItem key={ticket.ticketID} ticket={ticket} onUpdate={handleUpdate} onDelete={handleDelete} />
-                ))}
-            </Grid>
+            <TableContainer component={Paper}>
+                <Table aria-label="collapsible table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell />
+                            <TableCell>Ticket ID</TableCell>
+                            <TableCell>Asset ID</TableCell>
+                            <TableCell>Issue Description</TableCell>
+                            <TableCell>Date Raised</TableCell>
+                            <TableCell>Status</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {tickets.map((ticket) => (
+                            <TicketItem key={ticket.ticketID} ticket={ticket} onUpdate={handleUpdate} onDelete={handleDelete} />
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
             <Dialog open={deleteOpen} onClose={handleCancelDelete}>
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <DialogContent>
