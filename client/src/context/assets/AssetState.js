@@ -39,8 +39,9 @@ const AssetState = props => {
       asset.lastModified = new Date().toISOString();
       const res = await axios.post('/api/assets', asset);
       dispatch({ type: CREATE_ASSET, payload: res.data });
+      return { success: true, data: res.data };
     } catch (err) {
-      console.error(err);
+      return { success: false, error: err.response ? err.response.data : 'Server Error' };
     }
   };
 

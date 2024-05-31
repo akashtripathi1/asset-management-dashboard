@@ -41,8 +41,10 @@ const TicketState = props => {
       ticket.lastModified = new Date().toISOString();
       const res = await axios.post('/api/tickets', ticket);
       dispatch({ type: CREATE_TICKET, payload: res.data });
+      return { success: true, data: res.data };
+      
     } catch (err) {
-      console.error(err);
+      return { success: false, error: err.response ? err.response.data : 'Server Error' };
     }
   };
 

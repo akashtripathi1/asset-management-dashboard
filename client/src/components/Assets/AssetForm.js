@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@mui/material';
 import AssetContext from '../../context/assets/assetContext';
+import Alerts from '../layout/Alerts';
 
 const AssetForm = ({ open, handleClose, currentAsset }) => {
     const { createAsset, updateAsset } = useContext(AssetContext);
@@ -24,6 +25,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
     });
 
     const [errors, setErrors] = useState({});
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         if (currentAsset) {
@@ -98,17 +100,25 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setMessage('');
         if (!validateForm()) return;
 
         if (currentAsset) {
             updateAsset(asset);
+            setMessage('Asset Updated');
+            handleClose();
         } else {
-            createAsset(asset);
+            const res = await createAsset(asset);
+            if(!res.success){
+                setMessage(res.error.msg);
+            }
+            else{
+                setMessage('Asset Created');
+                handleClose();
+            }
         }
-
-        handleClose();
     };
 
     const handleCloseModal = () => {
@@ -117,6 +127,8 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
     };
 
     return (
+        <div>
+        <Alerts message = {message} />
         <Modal open={open} onClose={handleCloseModal}>
             <Box sx={{
                 position: 'absolute',
@@ -322,6 +334,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                 </form>
             </Box>
         </Modal>
+        </div>
     );
 };
 
