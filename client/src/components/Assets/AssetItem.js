@@ -25,7 +25,7 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                 <TableCell>{name}</TableCell>
                 <TableCell>{description}</TableCell>
                 <TableCell>{location}</TableCell>
-                <TableCell>{manufacturer}</TableCell>
+                <TableCell>{status}</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -42,6 +42,10 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                                             <TableCell>{modelNumber}</TableCell>
                                         </TableRow>
                                         <TableRow>
+                                            <TableCell>Manufacturer</TableCell>
+                                            <TableCell>{manufacturer}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
                                             <TableCell>Serial Number</TableCell>
                                             <TableCell>{serialNumber}</TableCell>
                                         </TableRow>
@@ -52,10 +56,6 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                                         <TableRow>
                                             <TableCell>Last Maintenance Date</TableCell>
                                             <TableCell>{lastMaintenanceDate ? new Date(lastMaintenanceDate).toISOString().split('T')[0] : ''}</TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Status</TableCell>
-                                            <TableCell>{status}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Power</TableCell>

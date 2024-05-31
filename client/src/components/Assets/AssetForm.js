@@ -285,6 +285,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                             <TextField
                                 label="Power (in W)"
                                 name="power"
+                                type='number'
                                 value={asset.specifications.power}
                                 onChange={handleChange}
                                 fullWidth
@@ -296,6 +297,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                             <TextField
                                 label="Voltage (in V)"
                                 name="voltage"
+                                type='number'
                                 value={asset.specifications.voltage}
                                 onChange={handleChange}
                                 fullWidth
@@ -307,6 +309,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                             <TextField
                                 label="Current (in A)"
                                 name="current"
+                                type='number'
                                 value={asset.specifications.current}
                                 onChange={handleChange}
                                 fullWidth
@@ -318,6 +321,7 @@ const AssetForm = ({ open, handleClose, currentAsset }) => {
                             <TextField
                                 label="Speed (in RPM)"
                                 name="speed"
+                                type='number'
                                 value={asset.specifications.speed}
                                 onChange={handleChange}
                                 fullWidth

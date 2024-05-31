@@ -61,7 +61,7 @@ const Assets = () => {
                             <TableCell>Name</TableCell>
                             <TableCell>Description</TableCell>
                             <TableCell>Location</TableCell>
-                            <TableCell>Manufacturer</TableCell>
+                            <TableCell>Status</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
