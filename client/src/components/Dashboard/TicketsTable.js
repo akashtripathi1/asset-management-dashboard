@@ -12,7 +12,7 @@ const TicketsTable = () => {
 
   return (
     <TableContainer component={Paper} sx={{ mt: '2' }}>
-      <Typography variant="h6" style={{ padding: '2' }}>Tickets Overview</Typography>
+      <Typography variant="h6" style={{ padding: '2' }}>Tickets Details</Typography>
       <Table>
         <TableHead>
           <TableRow>

@@ -25,7 +25,7 @@ const OverviewMetrics = () => {
     <Grid container spacing={3}>
       <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
         <DashboardCard
-          title="Total Assets"
+          title="Assets Overview"
           totalValue={assets.length}
           items={[
             { label: 'Operational', value: operationalAssets, color: 'operational' },
@@ -36,7 +36,7 @@ const OverviewMetrics = () => {
       </Grid>
       <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
         <DashboardCard
-          title="Total Tickets"
+          title="Tickets Overview"
           totalValue={tickets.length}
           items={[
             { label: 'Open', value: openTickets, color: 'open' },

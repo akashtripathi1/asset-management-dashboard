@@ -86,7 +86,7 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Speed</TableCell>
-                                            <TableCell>{speed} rpm</TableCell>
+                                            <TableCell>{speed} RPM</TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
