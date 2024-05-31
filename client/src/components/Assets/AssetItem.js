@@ -77,10 +77,10 @@ const AssetItem = ({ asset, onUpdate, onDelete }) => {
                                 </Table>
                             </TableContainer>
                             <div style={{ display: "flex", gap: "8px" }}>
-                                <Button size="small" color="primary" variant="outlined" onClick={() => onUpdate(asset)}>
+                                <Button size="small" color="primary" variant="contained" onClick={() => onUpdate(asset)}>
                                     Update
                                 </Button>
-                                <Button size="small" color="secondary" variant="outlined" onClick={() => onDelete(asset)}>
+                                <Button size="small" color="secondary" variant="contained" onClick={() => onDelete(asset)}>
                                     Delete
                                 </Button>
                             </div>
