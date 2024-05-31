@@ -3,6 +3,7 @@ import { Container, Typography, Button, Dialog, DialogActions, DialogContent, Di
 import TicketContext from '../../context/tickets/ticketContext';
 import TicketItem from './TicketItem';
 import TicketForm from './TicketForm';
+import Alert from '../layout/Alerts';
 
 const Tickets = () => {
     const { tickets, loadTickets, deleteTicket } = useContext(TicketContext);
@@ -10,6 +11,7 @@ const Tickets = () => {
     const [currentTicket, setCurrentTicket] = useState(null);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [ticketToDelete, setTicketToDelete] = useState(null);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         loadTickets();
@@ -36,6 +38,7 @@ const Tickets = () => {
 
     const handleConfirmDelete = () => {
         deleteTicket(ticketToDelete);
+        setMessage('Ticket Deleted');
         setDeleteOpen(false);
     };
 
@@ -45,6 +48,7 @@ const Tickets = () => {
 
     return (
         <Container>
+            <Alert message={message} />
             <Typography variant="h4" component="h1" gutterBottom>
                 Tickets
             </Typography>

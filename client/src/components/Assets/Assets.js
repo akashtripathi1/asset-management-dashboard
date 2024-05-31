@@ -3,6 +3,7 @@ import { Container, Typography, Button, Dialog, DialogActions, DialogContent, Di
 import AssetContext from '../../context/assets/assetContext';
 import AssetItem from './AssetItem';
 import AssetForm from './AssetForm';
+import Alert from '../layout/Alerts';
 
 const Assets = () => {
     const { assets, loadAssets, deleteAsset } = useContext(AssetContext);
@@ -10,6 +11,7 @@ const Assets = () => {
     const [currentAsset, setCurrentAsset] = useState(null);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [assetToDelete, setAssetToDelete] = useState(null);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         loadAssets();
@@ -36,6 +38,7 @@ const Assets = () => {
 
     const handleConfirmDelete = () => {
         deleteAsset(assetToDelete);
+        setMessage('Asset Deleted');
         setDeleteOpen(false);
     };
 
@@ -45,6 +48,7 @@ const Assets = () => {
 
     return (
         <Container>
+            <Alert message={message} />
             <Typography variant="h4" component="h1" gutterBottom>
                 Assets
             </Typography>

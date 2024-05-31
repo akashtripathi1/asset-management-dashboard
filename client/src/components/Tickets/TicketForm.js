@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Modal, Box, Typography, TextField, Button, Grid, Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@mui/material';
 import TicketContext from '../../context/tickets/ticketContext';
 import AssetContext from '../../context/assets/assetContext';
-import Alerts
-    from '../layout/Alerts';
+import Alerts from '../layout/Alerts';
+
 const TicketForm = ({ open, handleClose, currentTicket }) => {
     const { createTicket, updateTicket } = useContext(TicketContext);
     const { assets } = useContext(AssetContext);
@@ -70,6 +70,7 @@ const TicketForm = ({ open, handleClose, currentTicket }) => {
                 setMessage(res.error.msg);
             }
             else {
+                setMessage('Ticket Created');
                 handleClose();
             }
         }
